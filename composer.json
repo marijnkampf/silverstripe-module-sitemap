@@ -1,0 +1,17 @@
+{
+	"name": "exadium/sitemap",
+	"description": "Easily create a user friendly sitemaps for your whole or parts of your website. Ideal for your users when they have created a page with several sub pages and want the parent page to show the available underlying pages.",
+	"type": "silverstripe-module",
+	"keywords": ["silverstripe", "module", "sitemap", "user", "front-end"],
+	"authors": [
+	{
+		"name": "Marijn Kampf",
+		"email": "info@exadium.com"
+	}
+	],
+
+	"require":
+	{
+    "silverstripe/cms": "2.3.*",
+	}
+}
