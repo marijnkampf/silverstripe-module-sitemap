@@ -42,5 +42,4 @@ This module is ready to be extended if you would like to add specific data to yo
 Extend the Sitemap class and extend the prepareTemplateData() function with data specific to your requirements. 
 
 # Requirements
-SilverStripe minimum version 2.3.3.
-Works with 2.4
+SilverStripe 3.1

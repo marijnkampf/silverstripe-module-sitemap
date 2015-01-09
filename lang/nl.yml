@@ -1,0 +1,22 @@
+nl:
+  SitemapModule:
+    SITEMAP:
+      Sitemap
+    INCLUDESITEMAP:
+      Toon Sitemap op deze pagina
+    BASEPAGE:
+      Basis pagina
+    DEPTH:
+      Diepte (0 = ongelimiteerd)
+    SHOWPAGENAME:
+      Toon paginanaam
+    SHOWMETATITLE:
+      Toon metatitel
+    SHOWMETADESCRIPTION:
+      Toon meta-omschrijving
+    SHOWPAGETHUMB:
+      Toon pagina thumbnail
+    EXCLUDEPAGE:
+      Verberg deze pagina in de sitemap
+    STYLESHEET:
+      Stylesheet

@@ -1,0 +1,22 @@
+en:
+  SitemapModule:
+    SITEMAP:
+      Sitemap
+    INCLUDESITEMAP:
+      Include a sitemap on this page
+    BASEPAGE:
+      Base Page
+    DEPTH:
+      Depth (0 = unlimited)
+    SHOWPAGENAME:
+      Show page name
+    SHOWMETATITLE:
+      Show meta title
+    SHOWMETADESCRIPTION:
+      Show meta description
+    SHOWPAGETHUMB:
+      Show page thumbnail
+    EXCLUDEPAGE:
+      Exclude this page from sitemap
+    STYLESHEET:
+      Stylesheet

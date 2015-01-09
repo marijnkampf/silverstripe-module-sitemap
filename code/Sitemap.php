@@ -1,43 +1,38 @@
 <?php
 
-class Sitemap extends DataObjectDecorator {
-	function extraStatics() {
-		return array(
-			'db' => array (
-				'IncludeSitemap' => 'Boolean',
-				'BasePage' => 'Text',
-				'Depth' => 'Int',
-				'ShowPageName' => 'Boolean',
-				'ShowPageMetaTitle' => 'Boolean',
-				'ShowPageMetaDescription' => 'Boolean',
-				'ShowPageThumbnail' => 'Boolean',
-				'ShowSelf' => 'Boolean',
-				'Stylesheet' => 'Text',
-			),
+class Sitemap extends DataExtension {
+	private static $db = array(
+		'IncludeSitemap' => 'Boolean',
+		'BasePage' => 'Text',
+		'Depth' => 'Int',
+		'ShowPageName' => 'Boolean',
+		'ShowPageMetaTitle' => 'Boolean',
+		'ShowPageMetaDescription' => 'Boolean',
+		'ShowPageThumbnail' => 'Boolean',
+		'ShowSelf' => 'Boolean',
+		'Stylesheet' => 'Text',
+	);
 
-			// Set Defaults
-			'defaults' => array (
-				'IncludeSitemap' => 0,
-				'Depth' => 0,
-				'ShowPageName' => 1,
-				'ShowPageMetaTitle' => 0,
-				'ShowPageMetaDescription' => 0,
-				'ShowPageThumbnail' => 0,
-				'ShowSelf' => 1,
-			),
-		);
-	}
+	private static $defaults = array(
+		'IncludeSitemap' => 0,
+		'Depth' => 0,
+		'ShowPageName' => 1,
+		'ShowPageMetaTitle' => 0,
+		'ShowPageMetaDescription' => 0,
+		'ShowPageThumbnail' => 0,
+		'ShowSelf' => 1,
+	);
 
-	public function updateCMSFields(&$fields) {
-		$fields->addFieldToTab("Root.Content." . _t('SitemapModule.SITEMAP','Sitemap', PR_HIGH, 'Tab name'), new CheckboxField("IncludeSitemap", _t('SitemapModule.INCLUDESITEMAP',"Include a sitemap on this page")));
-		$fields->addFieldToTab("Root.Content." . _t('SitemapModule.SITEMAP'), new OptionalTreeDropdownField('BasePage', _t('SitemapModule.BASEPAGE',"Base page"), 'SiteTree', 'URLSegment', 'MenuTitle'));
-		$fields->addFieldToTab("Root.Content." . _t('SitemapModule.SITEMAP'), new NumericField("Depth", _t('SitemapModule.DEPTH',"Depth (0 = unlimited)")));
-		$fields->addFieldToTab("Root.Content." . _t('SitemapModule.SITEMAP'), new CheckboxField("ShowPageName", _t('SitemapModule.SHOWPAGENAME',"Show page name")));
-		$fields->addFieldToTab("Root.Content." . _t('SitemapModule.SITEMAP'), new CheckboxField("ShowPageMetaTitle", _t('SitemapModule.SHOWMETATITLE',"Show meta title")));
-		$fields->addFieldToTab("Root.Content." . _t('SitemapModule.SITEMAP'), new CheckboxField("ShowPageMetaDescription", _t('SitemapModule.SHOWMETADESCRIPTION',"Show meta description")));
-		$fields->addFieldToTab("Root.Content." . _t('SitemapModule.SITEMAP'), new CheckboxField("ShowPageThumbnail", _t('SitemapModule.SHOWPAGETHUMB',"Show page thumbnail")));
-		$fields->addFieldToTab("Root.Content." . _t('SitemapModule.SITEMAP'), new CheckboxField("ShowSelf", _t('SitemapModule.EXCLUDEPAGE',"Exclude this page from sitemap")));
-		$fields->addFieldToTab("Root.Content." . _t('SitemapModule.SITEMAP'), new TextField("Stylesheet", _t('SitemapModule.STYLESHEET',"Stylesheet")));
+	public function updateCMSFields(FieldList $fields) {
+		$fields->addFieldToTab("Root." . _t('SitemapModule.SITEMAP', 'Sitemap'), new CheckboxField("IncludeSitemap", _t('SitemapModule.INCLUDESITEMAP',"Include a sitemap on this page")));
+		$fields->addFieldToTab("Root." . _t('SitemapModule.SITEMAP'), new TreeDropdownField('BasePage', _t('SitemapModule.BASEPAGE',"Base page"), 'SiteTree', 'URLSegment', 'MenuTitle'));
+		$fields->addFieldToTab("Root." . _t('SitemapModule.SITEMAP'), new NumericField("Depth", _t('SitemapModule.DEPTH',"Depth (0 = unlimited)")));
+		$fields->addFieldToTab("Root." . _t('SitemapModule.SITEMAP'), new CheckboxField("ShowPageName", _t('SitemapModule.SHOWPAGENAME',"Show page name")));
+		$fields->addFieldToTab("Root." . _t('SitemapModule.SITEMAP'), new CheckboxField("ShowPageMetaTitle", _t('SitemapModule.SHOWMETATITLE',"Show meta title")));
+		$fields->addFieldToTab("Root." . _t('SitemapModule.SITEMAP'), new CheckboxField("ShowPageMetaDescription", _t('SitemapModule.SHOWMETADESCRIPTION',"Show meta description")));
+		$fields->addFieldToTab("Root." . _t('SitemapModule.SITEMAP'), new CheckboxField("ShowPageThumbnail", _t('SitemapModule.SHOWPAGETHUMB',"Show page thumbnail")));
+		$fields->addFieldToTab("Root." . _t('SitemapModule.SITEMAP'), new CheckboxField("ShowSelf", _t('SitemapModule.EXCLUDEPAGE',"Exclude this page from sitemap")));
+		$fields->addFieldToTab("Root." . _t('SitemapModule.SITEMAP'), new TextField("Stylesheet", _t('SitemapModule.STYLESHEET',"Stylesheet")));
 	}
 
 	/**
@@ -96,7 +91,7 @@ class Sitemap extends DataObjectDecorator {
 				if(!($page instanceof ErrorPage) && $page->ShowInMenus && $page->canView()){
 					if (($this->owner->ShowSelf == 0) || (($this->owner->ShowSelf == 1) &&  $page->URLSegment != $this->owner->URLSegment)) {
 						$data = $this->owner->prepareTemplateData($page, $depth);
-						$output .= "<li class='" . $page->FirstLast() . $page->MiddleString() . "'>";
+						$output .= "<li class='" . /*$page->FirstLast() . $page->MiddleString() .*/ "'>";
 
 						$output .= $this->owner->customise($data)->renderWith(array('Sitemap_entry_' . $this->owner->Stylesheet, 'Sitemap_entry', 'Sitemap'));
 
@@ -154,6 +149,3 @@ class Sitemap extends DataObjectDecorator {
 	}
 
 }
-
-
-?>
